@@ -21,9 +21,10 @@ message ProposalRequest {
     string complement = 6;
   }
   string document = 1;
-  string email = 2;
-  Address address = 3;
-  string salary = 4;
+  string name = 2;
+  string email = 3;
+  Address address = 4;
+  string salary = 5;
 }
 
 message ProposalResponse {

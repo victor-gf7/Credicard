@@ -18,6 +18,10 @@ class Proposal(
     @Column(nullable = false, unique = true)
     val document: String,
 
+    @field:NotBlank
+    @Column(nullable = false)
+    val name: String,
+
     @field:Email
     @field:NotBlank
     @Column(nullable = false)

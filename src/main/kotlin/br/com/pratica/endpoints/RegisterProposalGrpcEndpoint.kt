@@ -56,6 +56,7 @@ class RegisterProposalGrpcEndpoint(
 private fun ProposalRequest.toModel(): Proposal {
     return Proposal(
         document = this.document,
+        name = this.name,
         email = this.email,
         address = Address(
             street = this.address.street,

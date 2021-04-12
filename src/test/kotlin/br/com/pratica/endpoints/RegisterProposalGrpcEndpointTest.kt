@@ -39,6 +39,7 @@ internal class RegisterProposalGrpcEndpointTest(
         val response = grpcClient.registerProposal(
             ProposalRequest.newBuilder()
                 .setDocument("809.784.250-57")
+                .setName("João Victor")
                 .setEmail("teste@teste.com")
                 .setAddress(
                     ProposalRequest.Address.newBuilder()
@@ -67,6 +68,7 @@ internal class RegisterProposalGrpcEndpointTest(
         repository.save(
             Proposal(
                 document = "809.784.250-57",
+                name = "João Victor",
                 email = "teste@teste.com",
                 address = Address(
                     street = "Rua 1",
@@ -83,7 +85,8 @@ internal class RegisterProposalGrpcEndpointTest(
                 grpcClient.registerProposal(
                     ProposalRequest.newBuilder()
                         .setDocument(proposal.document)
-                        .setEmail("rafael.ponte@zup.com.br")
+                        .setName("Teste 2")
+                        .setEmail("teste2@zup.com.br")
                         .setAddress(
                             ProposalRequest.Address.newBuilder()
                                 .setStreet("Rua 2")
@@ -117,6 +120,7 @@ internal class RegisterProposalGrpcEndpointTest(
             assertEquals(Status.INVALID_ARGUMENT.code, it.status.code)
             assertEquals("request with invalid parameters", it.status.description)
             assertThat(it.violations(), containsInAnyOrder(
+                Pair("name", "não deve estar em branco"),
                 Pair("document", "não deve estar em branco"),
                 Pair("document", "Value reported for the document is invalid"),
                 Pair("email", "não deve estar em branco"),
