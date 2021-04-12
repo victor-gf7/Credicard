@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.com.pratica";
+option java_outer_classname = "Credicard";
+
+package br.com.pratica;
+import "google/protobuf/timestamp.proto";
+
+service RegisterProposalGrpcService {
+  rpc registerProposal (ProposalRequest) returns (ProposalResponse) { }
+}
+
+message ProposalRequest {
+  message Address{
+    string street = 1;
+    string neighborhood = 2;
+    string number = 3;
+    string city = 4;
+    string cep = 5;
+    string complement = 6;
+  }
+  string document = 1;
+  string email = 2;
+  Address address = 3;
+  string salary = 4;
+}
+
+message ProposalResponse {
+  string id = 1;
+  google.protobuf.Timestamp createdAt = 2;
+}

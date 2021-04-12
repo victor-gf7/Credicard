@@ -1,0 +1,22 @@
+version: '3'
+services:
+  credicarddb:
+    image: 'postgres:alpine'
+    volumes:
+      - postgrescredicard-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: abc123
+      POSTGRES_DB: credicard
+      POSTGRES_HOST: postgres
+    networks:
+      - credicardnetwork
+
+volumes:
+  postgrescredicard-volume:
+
+networks:
+  credicardnetwork:
+    driver: bridge
