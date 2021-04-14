@@ -11,4 +11,4 @@ datasources:
     dialect: POSTGRES
 jpa.default.properties.hibernate.hbm2ddl.auto: update
 
-external.financialanalysis.url: ${ANALYSIS_URL:localhost:9999}
+external.financialanalysis.url: http://${ANALYSIS_HOST:localhost}:${ANALYSIS_PORT:9999}

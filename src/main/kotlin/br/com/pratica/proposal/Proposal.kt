@@ -43,4 +43,14 @@ class Proposal(
 
     @Column(nullable = false, updatable = false)
     val createdAt: LocalDateTime = LocalDateTime.now()
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    var status: ProposalStatus = ProposalStatus.NOT_ELIGIBLE
+
+    fun updateStatus(statusBeforeAnalysis: ProposalStatus): Proposal {
+        this.status = statusBeforeAnalysis
+        return this
+    }
+
 }
