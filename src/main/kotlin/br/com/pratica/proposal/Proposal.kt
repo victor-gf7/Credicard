@@ -1,5 +1,6 @@
 package br.com.pratica.proposal
 
+import br.com.pratica.card.Card
 import br.com.pratica.validations.annotations.CPForCNPJ
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -51,6 +52,15 @@ class Proposal(
     fun updateStatus(statusBeforeAnalysis: ProposalStatus): Proposal {
         this.status = statusBeforeAnalysis
         return this
+    }
+
+    fun attachTo(card: Card) {
+        if(card == null){
+            throw IllegalArgumentException("Impossible to attach this proposal to a card: card can not to be null")
+        }
+
+        card.proposalId = this.id.toString()
+        this.updateStatus(ProposalStatus.ELIGIBLE_WITH_ATTACHED_CARD)
     }
 
 }

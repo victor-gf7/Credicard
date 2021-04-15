@@ -7,8 +7,20 @@ datasources:
     driverClassName: org.postgresql.Driver
     username: admin
     password: abc123
+    hikari:
+      connection-timeout: 1000
+      idle-timeout: 10000
+      minimum-idle: 10
+      maximum-pool-size: 20
     schema-generate: CREATE_DROP
     dialect: POSTGRES
 jpa.default.properties.hibernate.hbm2ddl.auto: update
+jpa.show-sql: ${JPA_SHOW_SQL:true}
+jpa.properties.hibernate.format_sql: ${JPA_FORMAT_SQL:true}
+jpa.properties.hibernate.jdbc.batch_size: 5
+jpa.properties.hibernate.order_inserts: true
+jpa.properties.hibernate.order_updates: true
+jpa.open-in-view: false
 
-external.financialanalysis.url: http://${ANALYSIS_HOST:localhost}:${ANALYSIS_PORT:9999}
+external.financialanalysis.url: ${FINANCIAL_URL:`http://localhost:9999`}
+external.accountcards.url: ${CARDS_URL:`http://localhost:8888`}
