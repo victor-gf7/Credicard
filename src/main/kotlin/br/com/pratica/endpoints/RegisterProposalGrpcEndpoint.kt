@@ -6,9 +6,12 @@ import br.com.pratica.RegisterProposalGrpcServiceGrpc
 import br.com.pratica.exceptions.ProposalAlreadyExistsException
 import br.com.pratica.integration.AnalysisRequest
 import br.com.pratica.integration.FinancialClient
-import br.com.pratica.proposal.*
+import br.com.pratica.proposal.Address
+import br.com.pratica.proposal.Proposal
+import br.com.pratica.proposal.ProposalRepository
+import br.com.pratica.proposal.ProposalStatus
+import br.com.pratica.utils.toGrpcTimestamp
 import br.com.pratica.validations.annotations.ErrorHandler
-import com.google.protobuf.Timestamp
 import io.grpc.stub.StreamObserver
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.transaction.SynchronousTransactionManager
@@ -16,8 +19,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.math.BigDecimal
 import java.sql.Connection
-import java.time.LocalDateTime
-import java.time.ZoneId
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -99,12 +100,4 @@ private fun ProposalRequest.toModel(): Proposal {
         ),
         salary = BigDecimal(this.salary)
     )
-}
-
-private fun LocalDateTime.toGrpcTimestamp(): Timestamp {
-    val instant = this.atZone(ZoneId.of("UTC")).toInstant()
-    return Timestamp.newBuilder()
-        .setSeconds(instant.epochSecond)
-        .setNanos(instant.nano)
-        .build()
 }

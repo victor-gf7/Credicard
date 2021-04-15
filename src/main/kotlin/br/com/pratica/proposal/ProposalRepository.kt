@@ -17,5 +17,5 @@ interface ProposalRepository: JpaRepository<Proposal, UUID> {
         (QueryHint(name = "javax.persistence.lock.timeout", value = (LockOptions.SKIP_LOCKED.toString() + ""))) // ...skip locked
     )
     @Query(value = "SELECT * FROM Proposal p WHERE p.status ='ELIGIBLE' ORDER BY p.created_at ASC LIMIT 5 FOR UPDATE SKIP LOCKED", nativeQuery = true)
-    fun findTop5ByStatusOrderByCreatedAtAscAndForUpdate(status: ProposalStatus): List<Proposal> //Pessimistic locking is supported through the use of find*ForUpdate methods
+    fun findTop5ByStatusOrderByCreatedAtAscAndForUpdate(): List<Proposal> //Pessimistic locking is supported through the use of find*ForUpdate methods
 }

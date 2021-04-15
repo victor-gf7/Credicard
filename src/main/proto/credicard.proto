@@ -11,6 +11,29 @@ service RegisterProposalGrpcService {
   rpc registerProposal (ProposalRequest) returns (ProposalResponse) { }
 }
 
+service DetailProposalGrpcService {
+  rpc detailProposal (DetailProposalRequest) returns (DetailProposalResponse) { }
+}
+
+message DetailProposalRequest{
+  string id = 1;
+}
+
+message DetailProposalResponse{
+  enum ProposalStatusGrpc{
+      UNKNOWN_KEY = 0;
+      ELIGIBLE = 1;
+      NOT_ELIGIBLE = 2;
+      ELIGIBLE_WITH_ATTACHED_CARD = 3;
+  }
+  string document = 1;
+  string name = 2;
+  string email = 3;
+  string salary = 4;
+  ProposalStatusGrpc status = 5;
+  google.protobuf.Timestamp createdAt = 6;
+}
+
 message ProposalRequest {
   message Address{
     string street = 1;

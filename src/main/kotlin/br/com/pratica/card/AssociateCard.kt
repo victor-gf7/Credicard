@@ -23,7 +23,7 @@ class AssociateCard(
 
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
 
-    @Scheduled(fixedDelay = "50s")
+    @Scheduled(cron = "0 30 4 1/1 * ?")//execute the job once a day at 04:30 AM
     fun execute() {
         logger.info("Executing Scheduled...")
         var pending: Boolean = true
@@ -32,7 +32,7 @@ class AssociateCard(
             pending = transactionManager.executeWrite {
                 logger.info("Initializing transactional context. Searching for eligible proposals")
                 val eligibleProposals =
-                    proposalRepository.findTop5ByStatusOrderByCreatedAtAscAndForUpdate(ProposalStatus.ELIGIBLE)
+                    proposalRepository.findTop5ByStatusOrderByCreatedAtAscAndForUpdate()//Performs the search for ELIGIBLE status, taking advantage of the state machine
                 if (eligibleProposals.isEmpty()) {
                     logger.info("No proposal found")
                     return@executeWrite false
