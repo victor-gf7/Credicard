@@ -37,7 +37,7 @@ class Card(
 
     @Id
     @GeneratedValue
-    val id: UUID? = null
+    var id: UUID? = null
 
     @Column(nullable = false, updatable = false)
     val createdAt: LocalDateTime = LocalDateTime.now()

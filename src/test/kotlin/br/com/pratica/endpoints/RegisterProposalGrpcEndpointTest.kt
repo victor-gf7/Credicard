@@ -9,22 +9,23 @@ import br.com.pratica.proposal.Address
 import br.com.pratica.proposal.Proposal
 import br.com.pratica.proposal.ProposalRepository
 import br.com.pratica.proposal.ProposalStatus
-import com.google.rpc.BadRequest
+import br.com.pratica.shared.violations
 import io.grpc.ManagedChannel
 import io.grpc.Status
 import io.grpc.StatusRuntimeException
-import io.grpc.protobuf.StatusProto
 import io.micronaut.context.annotation.Bean
 import io.micronaut.context.annotation.Factory
 import io.micronaut.grpc.annotation.GrpcChannel
 import io.micronaut.grpc.server.GrpcServerChannel
-import io.micronaut.http.HttpResponse
 import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.containsInAnyOrder
-import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import java.math.BigDecimal
@@ -233,15 +234,6 @@ internal class RegisterProposalGrpcEndpointTest(
         fun blockingStub(@GrpcChannel(GrpcServerChannel.NAME) channel: ManagedChannel): RegisterProposalGrpcServiceGrpc.RegisterProposalGrpcServiceBlockingStub {
             return RegisterProposalGrpcServiceGrpc.newBlockingStub(channel)
         }
-    }
-
-    private fun StatusRuntimeException.violations(): List<Pair<String, String>> {
-        val details = StatusProto.fromThrowable(this)
-            ?.detailsList?.get(0)!!
-            .unpack(BadRequest::class.java)
-
-        return details.fieldViolationsList
-            .map { it.field to it.description }
     }
 }
 
