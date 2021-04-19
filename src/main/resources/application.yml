@@ -5,8 +5,8 @@ datasources:
   default:
     url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:credicard}
     driverClassName: org.postgresql.Driver
-    username: admin
-    password: abc123
+    username: ${DATABASE_USERNAME:admin}
+    password: ${DATABASE_PASSWORD:abc123}
     hikari:
       connection-timeout: 1000
       idle-timeout: 10000

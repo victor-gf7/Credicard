@@ -53,6 +53,31 @@ services:
     networks:
       - credicardnetwork
 
+  credicard:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    image: "ferreirazaltan/credicard"
+    container_name: credicard_1
+    ports:
+      - 50051:50051
+    depends_on:
+      - credicarddb
+      - contas
+      - analise
+    environment:
+      DATABASE_HOST: credicarddb
+      DATABASE_PORT: 5432
+      DATABASE_NAME: credicard
+      DATABASE_USERNAME: admin
+      DATABASE_PASSWORD: abc123
+      JPA_SHOW_SQL: 'true'
+      JPA_FORMAT_SQL: 'true'
+      FINANCIAL_URL: http://analise:9999
+      CARDS_URL: http://contas:8888
+    networks:
+      - credicardnetwork
+
 volumes:
   postgrescredicard-volume:
 
