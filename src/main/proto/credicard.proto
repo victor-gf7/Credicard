@@ -15,6 +15,20 @@ service DetailProposalGrpcService {
   rpc detailProposal (DetailProposalRequest) returns (DetailProposalResponse) { }
 }
 
+service BiometricsRegisterGrpcService {
+  rpc registerBiometrics (BiometricsRequest) returns (BiometricsResponse) { }
+}
+
+message BiometricsRequest{
+  string cardId = 1;
+  string fingerprint = 2;
+}
+
+message BiometricsResponse{
+  string id = 1;
+  google.protobuf.Timestamp createdAt = 2;
+}
+
 message DetailProposalRequest{
   string id = 1;
 }
