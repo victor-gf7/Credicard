@@ -3,7 +3,9 @@ package br.com.pratica.validations.handlers.card
 import br.com.pratica.exceptions.CardNotFoundException
 import br.com.pratica.validations.handlers.ExceptionHandler
 import io.grpc.Status
+import javax.inject.Singleton
 
+@Singleton
 class CardNotFoundExceptionHandler: ExceptionHandler<CardNotFoundException> {
     override fun handle(e: CardNotFoundException): ExceptionHandler.StatusWithDetails {
         return ExceptionHandler.StatusWithDetails(

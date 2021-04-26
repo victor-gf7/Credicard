@@ -20,7 +20,7 @@ service BiometricsRegisterGrpcService {
 }
 
 message BiometricsRequest{
-  string cardId = 1;
+  string cardNumber = 1;
   string fingerprint = 2;
 }
 

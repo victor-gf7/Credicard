@@ -30,7 +30,7 @@ class BiometricsRegisterGrpcEndpoint(
         request: BiometricsRequest,
         responseObserver: StreamObserver<BiometricsResponse>
     ) {
-        val biometry: Biometry = cardRepository.findById(UUID.fromString(request.cardId)).let { card ->
+        val biometry: Biometry = cardRepository.findByCardNumber(request.cardNumber).let { card ->
             if (!card.isPresent) {
                 throw CardNotFoundException("No card found")
             }

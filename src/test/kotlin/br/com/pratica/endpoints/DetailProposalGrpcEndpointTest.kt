@@ -89,9 +89,11 @@ internal class DetailProposalGrpcEndpointTest(
 
     }
 
-
+    /**
+     * The ClientFactory name must be single for each class
+     */
     @Factory
-    class ClientFactory {
+    class DetailProposalClientFactory {
         @Bean
         fun blockingStub(@GrpcChannel(GrpcServerChannel.NAME) channel: ManagedChannel): DetailProposalGrpcServiceGrpc.DetailProposalGrpcServiceBlockingStub {
             return DetailProposalGrpcServiceGrpc.newBlockingStub(channel)

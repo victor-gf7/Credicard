@@ -5,4 +5,7 @@ import io.micronaut.data.jpa.repository.JpaRepository
 import java.util.*
 
 @Repository
-interface CardRepository: JpaRepository<Card, UUID>
+interface CardRepository: JpaRepository<Card, UUID>{
+
+    fun findByCardNumber(cardNumber: String): Optional<Card>
+}

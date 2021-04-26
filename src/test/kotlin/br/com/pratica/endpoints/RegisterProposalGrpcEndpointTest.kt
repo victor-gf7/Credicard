@@ -228,8 +228,11 @@ internal class RegisterProposalGrpcEndpointTest(
         return mock(FinancialClient::class.java)
     }
 
+    /**
+     * The ClientFactory name must be single for each class
+     */
     @Factory
-    class ClientsFactory {
+    class RegisterProposalClientFactory {
         @Bean
         fun blockingStub(@GrpcChannel(GrpcServerChannel.NAME) channel: ManagedChannel): RegisterProposalGrpcServiceGrpc.RegisterProposalGrpcServiceBlockingStub {
             return RegisterProposalGrpcServiceGrpc.newBlockingStub(channel)
